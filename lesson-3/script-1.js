@@ -1,0 +1,16 @@
+let string = "test";
+console.log(typeof(string));
+let num = 12;
+console.log(typeof(num));
+let bool = true;
+console.log(typeof(bool));
+let empty = null;
+console.log(empty);
+let variable;
+console.log(variable);
+let big = 12n;
+console.log(typeof(big));
+const symbol = Symbol('description');
+console.log(typeof(symbol));
+let arr = [ "rrr" , 9 , "hi"];
+console.log(typeof(arr));
