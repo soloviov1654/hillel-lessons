@@ -30,7 +30,6 @@ if (userSport === null) {
     sportOption = `Wish you good luck in ${userSport}`
 }
 
-
 alert(`Что имеем:
     Ваш возраст- ${currYear - userYear} 
     ${cityOption}
