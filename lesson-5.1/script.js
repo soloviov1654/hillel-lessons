@@ -1,8 +1,8 @@
-let str = '' ;
-
-for (i = 20; i <= 30 ; i+=0.5){
-  str += i + ' '
-  
+let str = '';
+for (let i = 20; i <= 30; i += 0.5) {
+    str += i;
+    if (i < 30) {
+        str += ' ';
+    }
 }
-
-console.log(str)
+console.log(str);
