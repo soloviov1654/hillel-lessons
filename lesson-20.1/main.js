@@ -5,20 +5,18 @@ function Todos() {
 
   this.addToDo = (text, id, save = true) => {
     const checkboxId = `checkbox-${id}`;
-
     const li = $(`
       <li class="list-group-item d-flex align-items-center justify-content-between">
         <div class="form-check">
           <input class="form-check-input me-1" type="checkbox" id="${checkboxId}">
           <label class="form-check-label" for="${checkboxId}"></label>
-          <span class="todo-text">${text}</span>
         </div>
           <button class="btn btn-danger btn-sm">
             <i class="bi bi-trash"></i>
           </button>
       </li>
     `);
-
+    li.find(".form-check").append($("<span>").addClass("todo-text").text(text));
     ul.append(li);
     if (save) {
       todoList.push({ text, id });
@@ -52,10 +50,6 @@ function Todos() {
 
 const todos = new Todos();
 todos.renderTodos();
-
-
-
-
 
 $(".btn-success").on("click", () => {
   const text = $(".form-control").val();
