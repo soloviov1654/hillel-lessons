@@ -1,0 +1,1 @@
+export const require = value => value ? undefined : "Required"
