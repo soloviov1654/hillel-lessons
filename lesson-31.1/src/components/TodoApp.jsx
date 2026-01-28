@@ -7,7 +7,7 @@ import {
   toggleTodo,
   editTodo,
   clearTodos,
-} from "./todosSlice";
+} from "../redux/TodosSlice";
 
 export default function TodoApp() {
   const [text, setText] = useState("");
