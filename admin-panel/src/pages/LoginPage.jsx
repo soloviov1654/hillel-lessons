@@ -42,9 +42,6 @@ function LoginPage() {
             Олимп | Admin
           </Typography>
           <Typography variant="h4">Вход в админ-панель</Typography>
-          <Typography variant="body2" color="text.secondary">
-            Используй тестовые данные доступа
-          </Typography>
 
           <Form
             onSubmit={handleSubmit}
