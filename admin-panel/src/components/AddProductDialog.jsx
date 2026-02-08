@@ -1,4 +1,3 @@
-import { Form, Field } from 'react-final-form'
 import { useDispatch } from 'react-redux'
 import {
   Button,
@@ -6,13 +5,13 @@ import {
   DialogActions,
   DialogContent,
   DialogTitle,
-  FormControlLabel,
-  MenuItem,
   Stack,
-  Switch,
-  TextField,
 } from '@mui/material'
 import { createProductRequest } from '../store/productsSlice'
+import Form from './form/Form'
+import Input from './form/Input'
+import Select from './form/Select'
+import Checkbox from './form/Checkbox'
 
 const GENDER_OPTIONS = ['male', 'female', 'teen', 'kid']
 const SEASON_OPTIONS = ['autumn-winter', 'spring-summer', 'home']
@@ -32,95 +31,33 @@ function AddProductDialog({ open, onClose }) {
   const dispatch = useDispatch()
 
   const handleSubmit = (values) => {
-    dispatch(
-      createProductRequest({
-        ...values,
-      }),
-    )
+    dispatch(createProductRequest({ ...values }))
     onClose()
   }
 
   return (
     <Dialog open={open} onClose={onClose} maxWidth="sm" fullWidth>
       <DialogTitle>Добавить товар</DialogTitle>
-      <Form
-        initialValues={initialValues}
-        onSubmit={handleSubmit}
-        render={({ handleSubmit }) => (
-          <form onSubmit={handleSubmit}>
+      <Form initialValues={initialValues} onSubmit={handleSubmit}>
+        {() => (
+          <>
             <DialogContent>
               <Stack spacing={2} sx={{ mt: 1 }}>
-                <Field name="title" validate={required}>
-                  {({ input, meta }) => (
-                    <TextField
-                      {...input}
-                      label="Название"
-                      fullWidth
-                      error={meta.touched && Boolean(meta.error)}
-                      helperText={meta.touched && meta.error}
-                    />
-                  )}
-                </Field>
-                <Field name="image" validate={required}>
-                  {({ input, meta }) => (
-                    <TextField
-                      {...input}
-                      label="Путь к картинке"
-                      fullWidth
-                      error={meta.touched && Boolean(meta.error)}
-                      helperText={meta.touched && meta.error}
-                    />
-                  )}
-                </Field>
-                <Field name="gender">
-                  {({ input }) => (
-                    <TextField {...input} label="Пол" select fullWidth>
-                      {GENDER_OPTIONS.map((option) => (
-                        <MenuItem key={option} value={option}>
-                          {option}
-                        </MenuItem>
-                      ))}
-                    </TextField>
-                  )}
-                </Field>
-                <Field name="season">
-                  {({ input }) => (
-                    <TextField {...input} label="Сезон" select fullWidth>
-                      {SEASON_OPTIONS.map((option) => (
-                        <MenuItem key={option} value={option}>
-                          {option}
-                        </MenuItem>
-                      ))}
-                    </TextField>
-                  )}
-                </Field>
+                <Input
+                  name="title"
+                  validate={required}
+                  textFieldProps={{ label: 'Название' }}
+                />
+                <Input
+                  name="image"
+                  validate={required}
+                  textFieldProps={{ label: 'Путь к картинке' }}
+                />
+                <Select name="gender" label="Пол" options={GENDER_OPTIONS} />
+                <Select name="season" label="Сезон" options={SEASON_OPTIONS} />
                 <Stack direction="row" spacing={2}>
-                  <Field name="isNew" type="checkbox">
-                    {({ input }) => (
-                      <FormControlLabel
-                        control={
-                          <Switch
-                            checked={Boolean(input.value)}
-                            onChange={(event) => input.onChange(event.target.checked)}
-                          />
-                        }
-                        label="Новинка"
-                      />
-                    )}
-                  </Field>
-                  <Field name="isColor" type="checkbox">
-                    {({ input }) => (
-                      <FormControlLabel
-                        control={
-                          <Switch
-                            checked={Boolean(input.value)}
-                            onChange={(event) => input.onChange(event.target.checked)}
-                          />
-                        }
-                        label="Цветная серия"
-                      />
-                    )}
-                  </Field>
+                  <Checkbox name="isNew" label="Новинка" />
+                  <Checkbox name="isColor" label="Цветная серия" />
                 </Stack>
               </Stack>
             </DialogContent>
@@ -132,9 +69,9 @@ function AddProductDialog({ open, onClose }) {
                 Добавить
               </Button>
             </DialogActions>
-          </form>
+          </>
         )}
-      />
+      </Form>
     </Dialog>
   )
 }

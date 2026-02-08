@@ -1,4 +1,4 @@
-import { call, put, takeLatest } from 'redux-saga/effects'
+import { all, call, put, takeEvery, takeLatest } from 'redux-saga/effects'
 import { push } from 'redux-first-history'
 import { loginFailure, loginRequest, loginSuccess, logout } from './authSlice'
 import {
@@ -85,10 +85,12 @@ function* handleDeleteProduct(action) {
 }
 
 export default function* rootSaga() {
-  yield takeLatest(loginRequest.type, handleLogin)
-  yield takeLatest(logout.type, handleLogout)
-  yield takeLatest(fetchProductsRequest.type, handleFetchProducts)
-  yield takeLatest(createProductRequest.type, handleCreateProduct)
-  yield takeLatest(updateProductRequest.type, handleUpdateProduct)
-  yield takeLatest(deleteProductRequest.type, handleDeleteProduct)
+  yield all([
+    takeLatest(loginRequest.type, handleLogin),
+    takeLatest(logout.type, handleLogout),
+    takeLatest(fetchProductsRequest.type, handleFetchProducts),
+    takeEvery(createProductRequest.type, handleCreateProduct),
+    takeLatest(updateProductRequest.type, handleUpdateProduct),
+    takeEvery(deleteProductRequest.type, handleDeleteProduct),
+  ])
 }
